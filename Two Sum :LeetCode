@@ -1,0 +1,22 @@
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) 
+    {
+        vector<int> index;
+        index.push_back(-1);
+        index.push_back(-1);
+        for(unsigned int i = 0; i<nums.size();i++)
+        {
+            for(int k = i+1;k<nums.size();k++){
+                if(nums[i] + nums[k] == target){
+                    index[0]=i;
+                    index[1]=k;
+                    return index;
+                }
+            }
+                    
+        }
+        return index;
+    }
+};
