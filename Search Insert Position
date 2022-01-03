@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int searchInsert(vector<int>& nums, int target) {
+        int index = BinarySearch(nums,0,nums.size(),target,0);
+        if(index != -1){
+            return index+1;
+        }
+        int len = nums.size();
+        int last = nums[len];
+        int first = nums[0];
+        if(target > last){
+            return len;
+        }
+        if(target < first){
+            return 0;
+        }
+        nums.push_back(target);
+        sort(nums.begin(),nums.end());
+        int findIndex = BinarySearch(nums,0,nums.size(),target,0);
+        remove(nums.begin(),nums.end(),target);
+        return findIndex + 1;
+    }
+    int BinarySearch(vector<int>& nums,int left, int right, int target,int findIndex){
+        int mid = (left+right-1)/2;
+        if(nums[mid] == target){
+            return mid;
+        }
+        if(nums[mid]>target){
+            return BinarySearch(nums,left,mid-1,target,findIndex);
+        }
+        else{
+            return BinarySearch(nums,mid+1,right,target,findIndex);
+        }   
+        return -1;
+    }
+};
