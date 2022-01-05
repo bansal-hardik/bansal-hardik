@@ -1,0 +1,52 @@
+class Solution {
+public:
+    vector<int> platesBetweenCandles(string s, vector<vector<int>>& queries) {
+        vector<int> answer;
+        int queryCheck=0;
+        while(queryCheck<=(queries.size()-1)){
+            int ans = Answer(s,queries[queryCheck]);
+            answer.push_back(ans);
+            queryCheck++;
+        }
+        return answer;
+    }
+    int Answer(string s, vector<int>query){
+        string str ="";
+        int flagStar =0;
+        int flagCandle = 0;
+        int flag = -1;
+        int lastFlag = 0;
+        int plateCount=0;
+        for(int i =query[0];i<= query[1];i++){
+            if(s[i]=='*'){
+                flagStar=1;
+            }
+            if(s[i]=='|'){
+                flagCandle =1;
+            }
+            str = str + s[i];
+        }
+        if(flagStar == 0){
+            return plateCount;
+        }
+        if(flagCandle == 0){
+            return plateCount;
+        }
+        int n =str.size()-1;
+        for(int i =0;i<=n;i++){
+            if(str[n-i] == '|'){
+                lastFlag =n-i;
+                break;
+            }
+        }
+        for(int i =0;i<= lastFlag-1;i++){
+                if(str[i] == '|'){
+                    flag =1;
+                }
+                if(str[i] == '*' && flag == 1){
+                    plateCount++;
+                }
+            }
+        return plateCount;
+    }
+};
