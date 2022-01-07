@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int temp;
+    vector<int> rearrangeBarcodes(vector<int>& barcodes) {
+        int n = barcodes.size()-1;
+        int i = 0;
+        while(i < (n)){
+            int prev = i-1;
+            if(barcodes.at(i) == barcodes.at(i+1) ){
+                if(prev != -1 && barcodes.at(prev) == barcodes.at(n)){ 
+                temp = barcodes.at(n);
+                barcodes.at(n-1) = barcodes.at(i+1);
+                barcodes.at(i+1) = temp; 
+                i=i+2;
+                }
+                else{
+                temp = barcodes.at(n);
+                barcodes.at(n) = barcodes.at(i);
+                barcodes.at(i) = temp;
+                i++;
+                }
+            }
+            n--;
+        }
+        return barcodes;
+    }
+};
