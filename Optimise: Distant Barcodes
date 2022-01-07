@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int temp;
+    vector<int> rearrangeBarcodes(vector<int>& barcodes) {
+        map<int, int> mp; int mx = -1;
+        for(auto m : barcodes) mp[m]++,cout<<"\n"<<mp[m]<<"\n", mx = max(mp[m], mx),cout<<"\n mx"<<mx;
+        
+        priority_queue<pair<int, int>> q;
+        for(auto n : mp) cout<<n.first<<" and "<<n.second<<"\n",q.push({n.second, n.first});
+        
+        vector<vector<int>> v(mx); vector<int> res;
+        int idx = 0;
+        
+        while(q.size()) {
+            
+            auto[n, i] = q.top(); q.pop();
+            
+            while(n--) {v[idx % mx].push_back(i);
+                        idx++;}
+        }
+        
+        for(auto e : v)
+            for(auto n : e) res.push_back(n);
+        
+        return res;
+    }
+};
