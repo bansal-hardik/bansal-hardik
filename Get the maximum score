@@ -1,0 +1,50 @@
+class Solution {
+public:
+    int N = 1000000007;
+    int findMaxSum(vector<long long> arr1, vector<long long> arr2,long long n){
+        if(n == 0)
+            return 0;
+        long long sum = findMaxSum(arr1,arr2,n-1);
+        sum = (sum + max(arr1[n-1],arr2[n-1]))%N;
+        
+        return sum;
+    }
+    int maxSum(vector<int>& nums1, vector<int>& nums2) {
+        vector<long long> arr1,arr2;
+        int n1 = nums1.size();
+        int n2 = nums2.size();
+        int i =0;int j =0;
+        long long sum1 =0, sum2 = 0;
+        while(i <n1 && j< n2){
+            if(nums1[i] == nums2[j]){
+                sum1 = sum1 + nums1[i];
+                sum2 = sum2 + nums2[j];
+                arr1.push_back(sum1);
+                arr2.push_back(sum2);
+                sum1 =  0;
+                sum2 = 0;
+                i++;j++;
+            }
+            else if(nums1[i] <nums2[j]){
+                sum1 = sum1 + nums1[i];
+                i++;
+            }
+            else{
+                sum2 = sum2 + nums2[j];
+                j++;
+            }
+        }
+        while(i < n1){
+            sum1 = sum1 + nums1[i];
+            i++;
+        }
+        while(j < n2){
+            sum2 = sum2 + nums2[j];
+            j++;
+        }
+        arr1.push_back(sum1);
+        arr2.push_back(sum2);
+        int ans = findMaxSum(arr1, arr2,arr1.size());
+        return ans;
+    }
+};
