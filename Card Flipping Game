@@ -1,0 +1,45 @@
+class Solution {
+public:
+    int mini= 20001;
+    int flipgame(vector<int>& fronts, vector<int>& backs) {
+        if(fronts.size() == 1){
+            if(fronts.at(0) == backs.at(0)){
+                return 0;
+            }
+            else{
+                int val = max(fronts[0],backs[0]);
+                if(val == fronts[0])
+                    return backs[0];
+                return fronts[0];
+            }
+        }
+        int flag  = 1;
+        unordered_map<int, int> umap;
+        for(int i = 0;i<fronts.size();i++){
+            umap[fronts.at(i)]++;
+            umap[backs.at(i)]++;
+        }
+        int n = fronts.size();
+        vector<int> val;
+        if(umap[fronts.at(0)] == n){
+            unordered_map<int, int> :: iterator itr;
+            for(itr = umap.begin();itr !=umap.end();itr++){
+                val.push_back(itr->first);
+            }
+            mini = val[0]>val[1]?val[1]:val[0];
+            return mini;                                                                     
+        }                                                                                           if(umap[fronts.at(0)] == 2*n){
+            return 0;                                                                     
+        }
+        for(auto x :umap)  { 
+            cout << x.first << " <=x.first and x.second =>" << x.second << endl;
+            if(x.second == 1 && mini > x.first ){
+                flag = 0;
+                mini = x.first;
+            }
+        }
+        if(flag == 1)
+            return 0;
+        return mini;
+    }
+};
