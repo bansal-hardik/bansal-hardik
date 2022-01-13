@@ -1,0 +1,28 @@
+public:
+    int firstMissingPositive(vector<int>& nums) {
+        long long mini = 1000000009;
+        set<int> numSet;
+        for(auto it =nums.begin();it != nums.end();it++){
+            if(*it > 0){
+            numSet.insert(*it);
+            }
+        }
+        if(!(numSet.find(1) != numSet.end())){
+            cout<<"check block\n";
+            return 1;
+        }
+        int countValue = 1;
+        for(auto i =numSet.begin();i != numSet.end();i++){
+            if(*i != countValue){
+                mini = countValue;
+                break;
+            }
+            countValue++;
+        }
+        if((countValue-1) == numSet.size()){
+            auto it = numSet.end();
+            mini = *it +1 ;
+        }
+        return mini;
+    }
+};
