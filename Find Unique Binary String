@@ -1,0 +1,72 @@
+class Solution {
+public:
+    int binaryValue(string num){
+        cout<<"binaryValue function invoked \n";
+        int sum = 0;
+        if(num[num.size()-1] == '1'){
+            cout<<"sum check \n";
+            sum = 1;
+        }
+        int powerfactor =1;
+        cout<<num.size()<<"<=num.sisze\n";
+        for(int i = num.size()-2; i > -1; i--){
+            cout<<num[i]<<" <=num value at "<<i<<"\n";
+            int val = ((int)num[i]-48);
+            cout<<val<<"<= val\n";\
+            int power = pow(2,powerfactor++);
+            sum = sum + ((int)num[i]-48)*power;
+        }
+        cout<<sum<<"<= binaryValue \n";
+        return sum;
+    }
+    string binaryString(int missingValue,int m){
+        cout<<"binaryString function invoked \n";
+        string sum ="";
+        if(missingValue == 0){
+            for(int i = 0;i<m;i++){
+                sum = sum + "0";
+            }
+            return sum;
+        }
+        int n =0;
+        while(n<m){
+            int rem =  missingValue%2;
+            if(rem == 0){
+               sum =  "0" + sum; 
+            }
+            if(rem == 1){
+                sum ="1" + sum; 
+            }
+            missingValue = missingValue / 2;
+            n++;
+        }
+        return sum;
+    }
+    string findDifferentBinaryString(vector<string>& nums) {
+        unordered_map<int,string> umap;
+        string str = nums[0];
+        int n = nums.size();
+        if(nums[0].size()== 1){
+            if(nums[0] == "0")
+                return "1";
+            return "0";
+        }
+        int sum = 0;
+        for(int i = 0;i< nums.size();i++){
+            int val = binaryValue(nums[i]);
+            umap[val]= nums[i];
+        }
+        int missingValue;
+        int powerVal = pow(2,nums.size());
+        for(int i = 0;i <= powerVal-1;i++){
+            if(umap[i] == ""){
+               // cout<<i<<"<= i\n";
+                missingValue = i;
+                break;
+            }
+        }
+        cout<<missingValue<<"<= missingValue\n";
+        string BinaryString = binaryString(missingValue,n);
+        return BinaryString;
+    }
+};
