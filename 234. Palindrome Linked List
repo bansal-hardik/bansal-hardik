@@ -1,0 +1,66 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        ListNode *p = head;
+        int n =1;
+        while(p->next != NULL){
+            p = p->next;
+            n++;
+        }
+        if(n == 1)
+            return true;
+        if(n == 2){
+            if(head->val != head->next->val)
+                return false;
+            return true;
+        }
+        if(n == 3){
+            if(head->val != head->next->next->val)
+                return false;
+            return true;
+        }
+        n = n/2;
+        ListNode *q = head;
+        ListNode *s = head;
+        while(--n){
+            q= q->next;
+            s = s->next;
+        }
+        ListNode *head2= NULL;
+        ListNode *temp = NULL;
+        ListNode *prev = temp;
+        q= q->next;
+        s->next = temp;
+        while(q != NULL){
+            temp = q->next;
+            q->next = prev;
+            prev = q;
+            q = temp;
+        }
+        head2 = prev;
+        q = head;
+        //cout<<q->val<<"\n";
+        temp = head2;
+        //cout<<temp->val<<"\n";
+        while(q != NULL){
+            if(q->val != temp->val){
+                //cout<<"q->val = "<<q->val<<" temp->val ="<<temp->val;
+                return false;
+            }
+            //cout<<"q->val = "<<q->val<<" temp->val ="<<temp->val;
+            q = q->next;
+            temp = temp->next;
+        }
+        return true;
+    }
+};
