@@ -1,0 +1,39 @@
+#include<math.h>
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        vector<int> sum;
+        pair<int,int> numOfNine;
+        numOfNine.first = 9;
+        numOfNine.second = 0;
+        int n = digits.size()-1;
+        for(int i = 0;i< digits.size();i++){
+            if(digits[i] == 9){
+                numOfNine.second++;
+            }
+        }
+        if(digits.size() == numOfNine.second){
+            sum.push_back(1);
+            for(int i =0;i<digits.size();i++){
+                sum.push_back(0);
+            }
+            return sum;
+        }
+        if(digits[n]== 9){
+            digits[n] =0;
+            for(int i = digits.size()-2;i >= 0 ;i--){
+                if(digits[i] == 9){
+                    digits[i] =0;
+                }
+                else{
+                    digits[i]= digits[i]+1;
+                    break;
+                }
+            }
+        }
+        else{
+            digits[n] +=1;
+        }
+        return digits;
+    }
+};
