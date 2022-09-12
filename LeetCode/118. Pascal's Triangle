@@ -1,0 +1,42 @@
+class Solution {
+public:
+    vector<vector<int>> generate(int numRows) {
+        if(numRows == 1){
+            vector<vector<int>> tmp;
+            vector<int> p;
+            p.push_back(1);
+            tmp.push_back(p);
+            return tmp;
+        }
+        if(numRows == 2){
+            vector<vector<int>> tmp;
+            vector<int> p;vector<int> q;
+            p.push_back(1);
+            q.push_back(1);q.push_back(1);
+            tmp.push_back(p);
+            tmp.push_back(q);
+            return tmp;
+        }
+        vector<vector<int>> pt = generate(2);
+        //int actualRows = numRows;
+        numRows = numRows-2;
+        vector<int> sum;
+        while(numRows > 0){
+            int size = pt.size();
+            sum.push_back(1);
+            vector<int> tmp = pt[size-1];
+            int add = 0;
+            for(int i =0;i<tmp.size()-1;i++){
+                add = tmp[i] + tmp[i+1];
+                sum.push_back(add);
+            }
+            sum.push_back(1);
+            pt.push_back(sum);
+            sum.clear();
+            numRows--;
+        }
+        return pt;
+    }
+    
+    
+};
