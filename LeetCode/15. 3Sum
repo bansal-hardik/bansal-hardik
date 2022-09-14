@@ -1,0 +1,39 @@
+// Code with TLE Issues
+
+class Solution {
+public:
+    vector<vector<int>> result;
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        int i=0;
+        int j=1;
+        int k=2;
+        int n = nums.size();
+        findSum(nums, i,j,k,n);
+        return result;
+    }
+    unordered_map<string,int> m ;
+    void findSum(vector<int>& nums,int i ,int j , int k,int n){
+        if(i == n || j == n || k == n)
+            return;
+        if(i!=j && i!=k && j!=k){
+            int sum = nums[i] + nums[j] + nums[k];
+            if(sum == 0){
+                vector<int> h;
+                h.push_back(nums[i]);h.push_back(nums[j]);h.push_back(nums[k]);
+                sort(h.begin(),h.end());
+                string s = to_string(h[0]) + to_string(h[1]) + to_string(h[2]);
+                m[s]++;
+                if(m[s] == 1){
+                    result.push_back({h[0],h[1], h[2]});
+                }
+                h.clear();
+            }
+            findSum(nums,i+1,j,k,n);
+            findSum(nums,i,j+1,k,n);
+            findSum(nums,i,j,k+1,n);
+        }
+        return;
+    }
+    
+    
+};
