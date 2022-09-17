@@ -1,0 +1,60 @@
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        int size = matrix.size()-1;
+        int length = matrix[0].size()-1;
+        //cout<<size<<"  "<<length<<endl;
+        vector<int> v;
+        int n = (size+1) * (length+ 1);
+        //cout<<n<<"<=n \n";
+        int visited[size+1][length+1];
+        //cout<<visited[size][length]<<"\n";
+        int  i =0;
+        int j = 0;
+        while(n>0){
+            int left =length - i,right =i,up = size - j ,down =j;
+            //cout<<left<<"<=  before left\n";
+            while(right <= length && visited[i][right] != 1){
+                //cout<<visited[i][right]<<"check\n";
+                visited[i][right] = 1;
+                v.push_back(matrix[i][right]);
+                right++;
+                n--;
+            }
+            
+            right--;
+            //cout<<right<<"<= right\n";
+            down++;
+            while(down <= size && visited[down][right] != 1){
+                visited[down][right] = 1;
+                v.push_back(matrix[down][right]);
+                down++;
+                n--;
+            }
+            down--;
+            //cout<<down<<"<= down\n";
+            left--;
+            while(left>=j && visited[down][left] != 1){
+                visited[down][left] = 1;
+                v.push_back(matrix[down][left]);
+                left--;
+                n--;
+            }
+            left++;
+            //cout<<left<<"<= left\n";
+            
+            up--;
+            while(up>=i && visited[up][left] != 1){
+                visited[up][left] = 1;
+                v.push_back(matrix[up][left]);
+                up--;
+                n--;
+            }
+            up++;
+            //cout<<up<<"<= up\n";
+            
+            i++;j++;
+        }
+        return v;
+    }
+};
