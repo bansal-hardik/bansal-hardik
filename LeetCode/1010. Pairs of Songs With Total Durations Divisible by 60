@@ -1,0 +1,27 @@
+// Here we are considering the 0-60 range where value is divisible by 60 like 0 and 30
+
+class Solution {
+public:
+    int numPairsDivisibleBy60(vector<int>& time) {
+        long long int cnt = 0;
+        long long int n = time.size();
+        unordered_map<long long int,long long int> map;
+        for(int i = 0;i < n; i++){
+            map[time[i]%60]++;
+        }
+        int sum = 0;
+        for(auto i : map){
+            if(i.first == 30 || i.first == 0)
+                sum += (i.second*(i.second-1))/2;
+            else{
+                auto j = map.find(60-i.first);
+                if(j != map.end()){
+                    sum += i.second * map[60 - i.first];
+                    map[60 - i.first] = 0;
+                    map[i.first] = 0;
+                }
+            }
+        }
+        return sum;
+    }
+};
