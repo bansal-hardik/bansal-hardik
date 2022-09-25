@@ -1,0 +1,20 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+	int n;cin>>n;
+	vector<int> v;
+	for(int i =0;i<n;i++){
+		int x;cin>>x;
+		v.push_back(x);
+	}
+	int j=0 , ans =0;
+	unordered_set<int> s;
+	for(int i =0;i < n;i++){
+		while(j < n && s.find(v[j])== s.end()){
+			s.insert(v[j]);j++;
+		}
+		ans += ((j-i)* (j-i+1))/2;
+		s.erase(v[i]);
+	}
+	cout<<ans<<endl;
+}
