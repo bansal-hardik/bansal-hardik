@@ -1,0 +1,16 @@
+class Solution {
+public:
+    vector<string> sortPeople(vector<string>& names, vector<int>& heights) {
+        //sort(names.begin(),names.end(),compare())
+        vector<string> res;
+        map<long long ,string,greater<int>> m;
+        for(long long i = 0; i< heights.size();i++){
+            m[heights[i]] = names[i];
+        }
+        for(auto v : m){
+            res.push_back(v.second);
+        }
+        return res;
+        
+    }
+};
