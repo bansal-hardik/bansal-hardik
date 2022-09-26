@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int jump(vector<int>& arr) {
+        int n = arr.size();
+        int mxReach = arr[0];
+        int steps = arr[0];
+        int jumps = 1;
+        if(n==1) return 0;
+        if(arr[0] == 0) return -1;
+        for(int i=1; i<n; i++){
+            mxReach = max(mxReach, arr[i]+i);
+            cout<<"maxReach "<<mxReach<<endl;
+            steps--;
+            
+            if(steps == 0 && i != n-1){
+                if(mxReach == i) return -1;
+                jumps++;
+                cout<<"jump "<<jumps<<endl;
+                steps = mxReach - i;
+                cout<<"step "<<steps<<endl;
+            }
+            
+        }
+        return jumps;
+    }
+};
