@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int>> res;
+        int n = nums.size();
+        int bits = (1<<n);
+        for(int i =0;i<bits;i++){
+            int j=0,m=i,t=n;
+            vector<int> temp;
+            while(t){
+                if(m&1){
+                    temp.push_back(nums[j]);
+                }
+                
+                m=m>>1;t--;j++;
+            }
+            res.push_back(temp);
+        }
+        return res;
+    }
+};
