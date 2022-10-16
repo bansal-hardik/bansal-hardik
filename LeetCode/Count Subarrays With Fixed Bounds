@@ -1,0 +1,20 @@
+class Solution {
+public:
+    long long countSubarrays(vector<int>& nums, int minK, int maxK) {
+        long long cnt=0;
+        int m1= -1;
+        int m2 = -1;
+        int start = 0;
+        for(int i =0;i<nums.size();i++){
+            if(nums[i]> maxK || nums[i]<minK){
+                start = i+1;
+            }
+            if(nums[i] == minK)
+                m1=i;
+            if(nums[i] == maxK)
+                m2=i;
+            cnt = cnt + max(0,min(m1,m2)-start +1);
+        }
+        return cnt;
+    }
+};
