@@ -1,0 +1,29 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+vector<pair<int,int>> p;
+void Primeactor(int n){
+    int cnt;
+    for(int i =2;i*i<n;i++){
+        if(n%i == 0){
+            cnt =0;
+            while(n%i == 0){
+                cnt++;
+                n= n/i;
+            }
+            p.push_back(make_pair(i,cnt));
+        }
+    }
+    if(n!= 1){
+        p.push_back(make_pair(n,1));
+    }
+    for(auto x : p){
+        cout<<x.first<<"^"<<x.second<<endl;
+    }
+    return;
+}
+int main(){
+    int n ; cin>>n;
+    Primeactor(n);
+    return 0;
+}
