@@ -1,0 +1,32 @@
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        int n = digits.size();
+        vector<int> result;
+        int cnt =0;
+        if(digits[n-1] == 9){
+            for(int i = n-1;i >=0;i--){
+                if(digits[i] != 9){
+                    break;
+                }
+                cnt++;
+            }
+            if(cnt == n){
+                for(int i =0;i<cnt;i++){
+                    digits[i] =0;
+                }
+                digits.insert(digits.begin(),1);
+            }
+            else{
+                int index = n-cnt-1;
+                digits[index]++;
+                for(int i = index+1;i<n;i++){
+                    digits[i] = 0;
+                }
+            }
+        }
+        else
+            digits[n-1] += 1;
+        return digits;
+    }
+};
