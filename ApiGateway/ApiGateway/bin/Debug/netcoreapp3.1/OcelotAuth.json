@@ -1,0 +1,105 @@
+﻿{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/product",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/product",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "Key": "products",
+      "ServiceName": "PRODUCTAPI",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      },
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 2,
+        "DurationOfBreak": 60000,
+        "TimeoutValue": 2000
+      },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "IdentityApiKey",
+        "AllowedScopes": [ "apiscope" ]
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/product/{id}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/product/{id}",
+      "UpstreamHttpMethod": [ "Delete" ],
+      "Key": "productsDelete",
+      "ServiceName": "PRODUCTAPI",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      },
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 2,
+        "DurationOfBreak": 60000,
+        "TimeoutValue": 2000
+      },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "IdentityApiKey",
+        "AllowedScopes": [ "apiscope" ]
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/productdetails",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/productdetails",
+      "UpstreamHttpMethod": [ "Get", "Post", "Delete" ],
+      "Key": "productdetail",
+      "ServiceName": "PRODUCTDETAILAPI",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      },
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 2,
+        "DurationOfBreak": 60000,
+        "TimeoutValue": 2000
+      },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "IdentityApiKey",
+        "AllowedScopes": [ "apiscope" ]
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/productdetails/{id}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/productdetails/{id}",
+      "UpstreamHttpMethod": [ "Delete" ],
+      "Key": "productdetailDelete",
+      "ServiceName": "PRODUCTDETAILAPI",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      },
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 2,
+        "DurationOfBreak": 60000,
+        "TimeoutValue": 2000
+      },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "IdentityApiKey",
+        "AllowedScopes": [ "apiscope" ]
+      }
+    }
+  ],
+  "Aggregates": [
+    {
+      "RouteKeys": [
+        "productdetail",
+        "products"
+      ],
+      "UpstreamPathTemplate": "/combine",
+      "Aggregator": "FakeDefinedAggregator"
+    }
+  ],
+  "GlobalConfiguration": {
+    "RequestIdKey": "OcRequestId",
+    "AdministrationPath": "/administration",
+    "UseServiceDiscovery": true,
+    "ServiceDiscoveryProvider": {
+      "Type": "Eureka",
+      "Host": "localhost",
+      "Port": "8761"
+    },
+    "BaseUrl": "http://localhost:7000"
+  }
+}

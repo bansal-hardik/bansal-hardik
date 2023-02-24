@@ -1,0 +1,47 @@
+﻿{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/product",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/product",
+      "UpstreamHttpMethod": [ "Get" ],
+      "Key": "products",
+      "ServiceName": "PRODUCTAPI",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/productdetails",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/productdetails",
+      "UpstreamHttpMethod": [ "Get" ],
+      "Key": "productdetail",
+      "ServiceName": "PRODUCTDETAILAPI",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      }
+    }
+  ],
+  "Aggregates": [
+    {
+      "RouteKeys": [
+        "products",
+        "productdetail"
+      ],
+      "UpstreamPathTemplate": "/combine",
+      "Aggregator": "FakeDefinedAggregator"
+    }
+  ],
+  "GlobalConfiguration": {
+    "RequestIdKey": "OcRequestId",
+    "AdministrationPath": "/administration",
+    "UseServiceDiscovery": true,
+    "ServiceDiscoveryProvider": {
+      "Type": "Eureka",
+      "Host": "localhost",
+      "Port": "8761"
+    },
+    "BaseUrl": "http://localhost:7000"
+  }
+}

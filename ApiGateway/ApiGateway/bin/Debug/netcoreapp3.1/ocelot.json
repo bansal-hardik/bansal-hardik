@@ -1,0 +1,51 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/product",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/product",
+      "UpstreamHttpMethod": [ "Get" ],
+      "Key": "products",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "7001"
+        }
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/productdetails",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/productdetails",
+      "UpstreamHttpMethod": [ "Get" ],
+      "Key": "productdetails",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "7002"
+        }
+      ]
+    }
+  ],
+  "Aggregates": [
+    {
+      "RouteKeys": [
+        "products",
+        "productdetails"
+      ],
+      "UpstreamPathTemplate": "/combine",
+      "Aggregator": "FakeDefinedAggregator"
+    }
+  ],
+  "GlobalConfiguration": {
+    "AdministrationPath": "/administration",
+    "BaseUrl": "http://localhost:7000",
+    "requestidkey": "ocrequestid",
+    "servicediscoveryprovider": {
+      "type": "eureka",
+      "host": "localhost",
+      "port": "8761"
+    },
+    "useservicediscovery": true
+  }
+}
